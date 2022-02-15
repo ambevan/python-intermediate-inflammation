@@ -29,54 +29,34 @@ def test_daily_mean_integers():
     # Need to use Numpy testing functions to compare arrays
     npt.assert_array_equal(daily_mean(test_input), test_result)
 
-
-def test_daily_max_zeros():
-    """Test that max function works for an array of zeros."""
-    from inflammation.models import daily_max
-
-    test_input = np.array([[0, 0],
-                           [0, 0],
-                           [0, 0]])
-    test_result = np.array([0, 0])
-
-    # Need to use Numpy testing functions to compare arrays
-    npt.assert_array_equal(daily_max(test_input), test_result)
-
-def test_daily_max():
-    """Test that max function works for an array of positive integers."""
-    from inflammation.models import daily_max
-
-    test_input = np.array([[4, 3, 2],
-                           [1, 3, 5],
-                           [2, 4, 5]])
-    test_result = np.array([4, 4, 5])
-
-    # Need to use Numpy testing functions to compare arrays
-    npt.assert_array_equal(daily_max(test_input), test_result)
-
-def test_daily_min_zeros():
-    """Test that min function works for an array of zeros."""
+@pytest.mark.parametrize(
+    "test, expected",
+    [
+        ([[0, 0], [0, 0], [0, 0]], [0, 0]),
+        ([[1, 2], [3, 4], [5, 6]], [5, 6]),
+        ([[1.5, -2], [3.2, 4], [5, 6.1]], [5, 6.1]),
+        ([[-1, 2], [3, -4], [-5, 6]], [3, 6])
+    ]
+)
+def test_daily_min(test, expected):
+    """Test that max function works for an array of zeros, and positive and negative integers, and floats."""
     from inflammation.models import daily_min
+    npt.assert_array_equal(daily_min(np.array(test)), np.array(expected))
 
-    test_input = np.array([[0, 0],
-                           [0, 0],
-                           [0, 0]])
-    test_result = np.array([0, 0])
 
-    # Need to use Numpy testing functions to compare arrays
-    npt.assert_array_equal(daily_min(test_input), test_result)
-
-def test_daily_min():
-    """Test that min function works for an array of positive and negative integers."""
+@pytest.mark.parametrize(
+    "test, expected",
+    [
+        ([[0, 0], [0, 0], [0, 0]], [0, 0]),
+        ([[1, 2], [3, 4], [5, 6]], [1, 2]),
+        ([[1.5, -2], [3.2, 4], [5, 6.1]], [1.5, -2]),
+        ([[-1, 2], [3, -4], [-5, 6]], [-5, -4])
+    ]
+)
+def test_daily_min(test, expected):
+    """Test that min function works for an array of zeros, and positive and negative integers, and floats."""
     from inflammation.models import daily_min
-
-    test_input = np.array([[6, -2, 2],
-                           [2, 3, 5],
-                           [2, 4, -7]])
-    test_result = np.array([2, -2, -7])
-
-    # Need to use Numpy testing functions to compare arrays
-    npt.assert_array_equal(daily_min(test_input), test_result)
+    npt.assert_array_equal(daily_min(np.array(test)), np.array(expected))
 
 def test_daily_min_string():
     """Test for TypeError when passing strings"""
