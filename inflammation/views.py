@@ -23,3 +23,21 @@ def visualize(data_dict):
     fig.tight_layout()
 
     plt.show()
+
+
+def display_patient_record(patient):
+    """Display data for a single patient."""
+    print(patient.name)
+    for obs in patient.observations:
+        print(obs.day, obs.value)
+
+def display_patient_statistics(patient):
+    """Display data for a single patient."""
+    print(patient.name)
+    values = []
+    for obs in patient.observations:
+        values.append(obs.value)
+    print("Maximum: " + str(np.max(values)))
+    print("Minimum: " + str(np.min(values)))
+    print("Median: " + str(np.median(values)))
+    print("Standard deviation: " + str(np.std(values)))
